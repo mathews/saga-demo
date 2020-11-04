@@ -15,8 +15,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan("com.hrjk.fin.saga.demo.booking")
 @EnableDiscoveryClient
 @EnableTransactionManagement
-// @EnableScheduling
-// @EnableFeignClients
 @RefreshScope
 public class FluxBookingApplication {
 

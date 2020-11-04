@@ -47,13 +47,6 @@ public class BookingController {
 	@Value("${hotel.service.address:http://hotel.servicecomb.io:8882}")
 	private String hotelServiceUrl;
 
-	// @Autowired
-	// CarClient carClient;
-	// @Autowired
-	// HotelClient hotelClient;
-	// @Autowired
-	// RequestInterceptor requestInterceptor;
-
 	private Mono<CarBooking> orderCars(String name, int cars, String globalTxId) {
 		WebClient webClient = WebClient.create(carServiceUrl);
 		return webClient.post().uri("/order/{name}/{cars}", name, cars)
@@ -83,15 +76,7 @@ public class BookingController {
 				String globalTxId = ctx.get(OmegaContext.GLOBAL_TX_ID_KEY);
 				String localTxId = ctx.get(OmegaContext.GLOBAL_TX_ID_KEY);
 				LOG.info("BookingController got globalTxId {} and localTxId {} from Flux Context!", globalTxId,
-						localTxId);
-
-				// return carClient.orderCars(name, cars)
-				// .subscriberContext(Context.of(OmegaContext.GLOBAL_TX_ID_KEY, globalTxId,
-				// OmegaContext.GLOBAL_TX_ID_KEY, localTxId))
-				// .and(postCarBooking()).and(hotelClient.orderHotels(name,
-				// rooms)).and(postBooking())
-				// .then(Mono.just(name + " booking " + rooms + " rooms and " + cars + " cars
-				// OK"));
+						localTxId);				
 
 				return orderCars(name, cars, globalTxId)
 						.and(postCarBooking()).and(orderHotels(name, rooms, globalTxId)).and(postBooking())

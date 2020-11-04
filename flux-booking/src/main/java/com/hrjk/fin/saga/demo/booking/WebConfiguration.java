@@ -29,7 +29,6 @@ import org.springframework.web.reactive.config.EnableWebFlux;
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
 @EnableWebFlux
-// @Import(FeignAutoConfiguration.class)
 public class WebConfiguration {
   @RefreshScope
   @Bean
@@ -39,9 +38,4 @@ public class WebConfiguration {
     return http.build();
   }
   
-  // @Bean
-  // public RequestInterceptor feignClientRequestInterceptor(OmegaContext omegaContext){
-  //     return new FeignClientRequestInterceptor(omegaContext);
-  // }
-
 }
