@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: flux-hotel
+  cloud:
+    consul:
+      enabled: true
+      scheme: http
+      host: consul.service.consul
+      port: 8500
+    loadbalancer:
+      ribbon:
+        enabled: false
+  jta:
+    enabled: true
+    log-dir: txlog
+  transaction:
+    default-timeout: 6s
+    rollback-on-commit-failure: true
+  datasource:
+    initialization-mode: always
+    continue-on-error: true
+  # R2DBC config
+  r2dbc:
+    #url: "r2dbc:mysql://mariadb.default.svc.cluster.local/tags"
+    url: "r2dbc:mysql://192.168.11.230/tags"
+    username: root
+    password: "hrjk@123"
+    generate-unique-name: true
+    initialization-mode: always
+    pool:
+      enabled: true
+      initial-size: 5
+      max-idle-time: 10m
+      max-size: 10
+      validation-query: "select 1 from dual"
+      
+logging:
+  level:
+    root: info
+    org.apache.servicecomb.pack: debug
+    com.hrjk.fin.saga.demo: debug
+
+server:
+  port: 8882
+
+omega:
+  enable: true
+  
+alpha:
+  cluster:
+    address: alpha-server.servicecomb.io:8080
+
